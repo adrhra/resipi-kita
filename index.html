@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resipi Kita | Koleksi Resipi Malaysia</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#fffaf3;
+  --card:#fff;
+  --text:#302b25;
+  --muted:#81776d;
+  --primary:#b85c38;
+  --secondary:#e9a66b;
+  --light:#f7e8d8;
+  --border:#eee2d5;
+  --shadow:0 8px 25px rgba(80,45,20,.08);
+}
+
+body.dark {
+  --bg:#201d1a;
+  --card:#302b26;
+  --text:#fff3e7;
+  --muted:#c2b2a3;
+  --primary:#ed986d;
+  --secondary:#e9b17e;
+  --light:#45372e;
+  --border:#514238;
+  --shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html { scroll-behavior:smooth; }
+
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  transition:.3s;
+}
+
+button,input { font:inherit; }
+button { cursor:pointer; }
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 7%;
+  background:var(--card);
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:var(--shadow);
+}
+
+.logo {
+  font-family:'Playfair Display',serif;
+  font-size:27px;
+  font-weight:800;
+  color:var(--primary);
+}
+
+.logo span { color:var(--text); }
+
+nav {
+  display:flex;
+  align-items:center;
+  gap:22px;
+}
+
+nav a {
+  text-decoration:none;
+  color:var(--text);
+  font-size:14px;
+  font-weight:700;
+}
+
+nav a:hover { color:var(--primary); }
+
+.theme-btn {
+  background:var(--light);
+  border:none;
+  padding:10px 13px;
+  border-radius:50px;
+  font-size:18px;
+}
+
+.hero {
+  margin:35px auto;
+  width:86%;
+  min-height:390px;
+  border-radius:25px;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(28,20,14,.85),rgba(28,20,14,.15)),
+    url('https://images.unsplash.com/photo-1547592180-85f173990554?w=1600') center/cover;
+  display:flex;
+  align-items:center;
+  padding:55px;
+  color:white;
+}
+
+.hero-content { max-width:550px; }
+
+.hero small {
+  color:#ffd5a9;
+  font-weight:800;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,6vw,65px);
+  line-height:1.1;
+  margin:18px 0;
+}
+
+.hero p {
+  font-size:16px;
+  line-height:1.8;
+  color:#f4e8df;
+  margin-bottom:25px;
+}
+
+.main-btn {
+  display:inline-block;
+  background:var(--primary);
+  color:white;
+  text-decoration:none;
+  border:none;
+  border-radius:30px;
+  padding:14px 25px;
+  font-weight:800;
+}
+
+.main-btn:hover { opacity:.85; }
+
+section {
+  width:86%;
+  margin:65px auto;
+}
+
+.section-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:25px;
+  gap:15px;
+}
+
+.section-heading h2 {
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+}
+
+.section-heading p {
+  color:var(--muted);
+  margin-top:6px;
+  font-size:14px;
+}
+
+.categories {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.category {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px 15px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.category:hover {
+  transform:translateY(-5px);
+  border-color:var(--primary);
+}
+
+.category .emoji { font-size:35px; }
+
+.category h3 {
+  margin-top:12px;
+  font-size:15px;
+}
+
+.search-area {
+  display:flex;
+  gap:12px;
+  margin-bottom:25px;
+  flex-wrap:wrap;
+}
+
+.search-area input {
+  flex:1;
+  min-width:200px;
+  padding:15px 20px;
+  border-radius:30px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  outline:none;
+}
+
+.search-area input:focus {
+  border-color:var(--primary);
+}
+
+.filter-buttons {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+.filter-buttons button {
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  padding:10px 17px;
+  border-radius:25px;
+  font-weight:700;
+}
+
+.filter-buttons button.active,
+.filter-buttons button:hover {
+  background:var(--primary);
+  color:white;
+  border-color:var(--primary);
+}
+
+.recipe-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+
+.recipe-card {
+  background:var(--card);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+  transition:.25s;
+}
+
+.recipe-card:hover { transform:translateY(-6px); }
+
+.recipe-card img {
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  display:block;
+  background:var(--light);
+}
+
+.recipe-info { padding:19px; }
+
+.recipe-tag {
+  display:inline-block;
+  background:var(--light);
+  color:var(--primary);
+  font-size:11px;
+  font-weight:800;
+  padding:6px 11px;
+  border-radius:20px;
+  margin-bottom:10px;
+}
+
+.recipe-info h3 {
+  font-family:'Playfair Display',serif;
+  font-size:21px;
+  margin-bottom:8px;
+}
+
+.recipe-info p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  min-height:42px;
+}
+
+.recipe-meta {
+  display:flex;
+  justify-content:space-between;
+  margin:15px 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.card-actions {
+  display:flex;
+  gap:9px;
+}
+
+.view-btn {
+  flex:1;
+  border:none;
+  border-radius:25px;
+  background:var(--primary);
+  color:white;
+  padding:11px;
+  font-weight:800;
+}
+
+.fav-btn {
+  border:1px solid var(--border);
+  background:var(--light);
+  border-radius:50%;
+  width:42px;
+  font-size:18px;
+  color:var(--primary);
+}
+
+.empty {
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+  grid-column:1/-1;
+}
+
+.random-box {
+  background:var(--light);
+  border-radius:22px;
+  padding:35px;
+  text-align:center;
+}
+
+.random-box h2 {
+  font-family:'Playfair Display',serif;
+  margin-bottom:10px;
+  font-size:29px;
+}
+
+.random-box p {
+  color:var(--muted);
+  margin-bottom:20px;
+}
+
+footer {
+  background:var(--card);
+  border-top:1px solid var(--border);
+  padding:35px 7%;
+  text-align:center;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+footer strong {
+  color:var(--primary);
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+}
+
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  z-index:30;
+  padding:20px;
+  overflow-y:auto;
+}
+
+.modal-content {
+  background:var(--card);
+  color:var(--text);
+  max-width:750px;
+  margin:30px auto;
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+}
+
+.modal-content img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+}
+
+.modal-body { padding:28px; }
+
+.close {
+  position:absolute;
+  right:17px;
+  top:17px;
+  border:none;
+  background:white;
+  color:#333;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  font-size:22px;
+}
+
+.modal-body h2 {
+  font-family:'Playfair Display',serif;
+  font-size:30px;
+  margin:10px 0;
+}
+
+.modal-body h3 {
+  color:var(--primary);
+  margin:25px 0 12px;
+}
+
+.modal-body p {
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.modal-body ul,.modal-body ol {
+  padding-left:22px;
+  line-height:2;
+}
+
+.tip {
+  background:var(--light);
+  padding:16px;
+  border-radius:12px;
+  margin-top:20px;
+  line-height:1.7;
+}
+
+@media(max-width:850px) {
+  .recipe-grid { grid-template-columns:repeat(2,1fr); }
+  .categories { grid-template-columns:repeat(2,1fr); }
+  nav { gap:12px; }
+}
+
+@media(max-width:600px) {
+  header { padding:15px 5%; }
+  .logo { font-size:21px; }
+  nav a { display:none; }
+  .hero { width:92%; padding:30px; min-height:350px; }
+  section { width:92%; }
+  .recipe-grid { grid-template-columns:1fr; }
+  .section-heading h2 { font-size:26px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Resipi <span>Kita.</span></div>
+  <nav>
+    <a href="#home">Utama</a>
+    <a href="#categories">Kategori</a>
+    <a href="#recipes">Resipi</a>
+    <a href="#favourites">Kegemaran</a>
+    <button class="theme-btn" onclick="toggleDark()" id="themeBtn">🌙</button>
+  </nav>
+</header>
+
+<div class="hero" id="home">
+  <div class="hero-content">
+    <small>Selamat datang ke Resipi Kita</small>
+    <h1>Masakan istimewa, bermula dari rumah.</h1>
+    <p>
+      Temui pelbagai resipi menarik daripada masakan tradisional
+      sehinggalah pencuci mulut yang mudah disediakan.
+      Mari masak bersama!
+    </p>
+    <a href="#recipes" class="main-btn">Terokai Resipi →</a>
+  </div>
+</div>
+
+<section id="categories">
+  <div class="section-heading">
+    <div>
+      <h2>Terokai Kategori</h2>
+      <p>Pilih kategori kegemaran anda.</p>
+    </div>
+  </div>
+
+  <div class="categories">
+    <div class="category" onclick="filterRecipes('Tradisional')">
+      <div class="emoji">🍛</div>
+      <h3>Resipi Tradisional</h3>
+    </div>
+
+    <div class="category" onclick="filterRecipes('Pencuci Mulut')">
+      <div class="emoji">🍰</div>
+      <h3>Pencuci Mulut</h3>
+    </div>
+
+    <div class="category" onclick="filterRecipes('Minuman')">
+      <div class="emoji">🥤</div>
+      <h3>Minuman</h3>
+    </div>
+
+    <div class="category" onclick="filterRecipes('Resipi Mudah')">
+      <div class="emoji">🥪</div>
+      <h3>Resipi Mudah</h3>
+    </div>
+  </div>
+</section>
+
+<section id="recipes">
+  <div class="section-heading">
+    <div>
+      <h2>Koleksi Resipi</h2>
+      <p>Pelbagai pilihan untuk dicuba di rumah.</p>
+    </div>
+  </div>
+
+  <div class="search-area">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="🔍 Cari nama resipi..."
+      oninput="displayRecipes()"
+    >
+  </div>
+
+  <div class="filter-buttons">
+    <button class="active" onclick="filterRecipes('Semua',this)">Semua</button>
+    <button onclick="filterRecipes('Tradisional',this)">Tradisional</button>
+    <button onclick="filterRecipes('Pencuci Mulut',this)">Pencuci Mulut</button>
+    <button onclick="filterRecipes('Minuman',this)">Minuman</button>
+    <button onclick="filterRecipes('Resipi Mudah',this)">Resipi Mudah</button>
+  </div>
+
+  <div class="recipe-grid" id="recipeGrid"></div>
+</section>
+
+<section>
+  <div class="random-box">
+    <h2>Tak tahu nak masak apa? 🤔</h2>
+    <p>Biarkan Resipi Kita pilihkan satu resipi secara rawak untuk anda!</p>
+    <button class="main-btn" onclick="randomRecipe()">🎲 Pilihkan Resipi</button>
+  </div>
+</section>
+
+<section id="favourites">
+  <div class="section-heading">
+    <div>
+      <h2>❤️ Resipi Kegemaran</h2>
+      <p>Resipi yang anda simpan untuk dicuba kemudian.</p>
+    </div>
+  </div>
+  <div class="recipe-grid" id="favouriteGrid"></div>
+</section>
+
+<footer>
+  <strong>Resipi Kita.</strong>
+  <p>Masakan yang menyatukan kita.</p>
+  <p>© 2026 Resipi Kita | Projek ASK Tingkatan 1</p>
+</footer>
+
+<div class="modal" id="recipeModal">
+  <div class="modal-content">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalDetails"></div>
+  </div>
+</div>
+
+<script>
+
+const recipes = [
+
+/* RESIPI TRADISIONAL */
+
+{
+id:1,
+name:"Nasi Lemak",
+category:"Tradisional",
+time:"45 minit",
+difficulty:"Sederhana",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Malaysian_Nasi_Lemak.jpg",
+description:"Hidangan tradisional Malaysia yang terkenal dengan nasi berlemak, sambal dan pelbagai lauk.",
+ingredients:["2 cawan beras","1 cawan santan","2 helai daun pandan","Sedikit garam","Air secukupnya","Telur rebus, timun dan kacang goreng","Sambal nasi lemak"],
+steps:["Basuh beras sehingga bersih dan masukkan ke dalam periuk nasi.","Tambahkan santan, air, garam dan daun pandan.","Masak nasi sehingga lembut dan masak sepenuhnya.","Sediakan sambal nasi lemak mengikut resipi pilihan.","Hidangkan nasi bersama telur rebus, timun dan kacang goreng."],
+tip:"Gunakan daun pandan untuk memberikan aroma yang lebih harum kepada nasi."
+},
+
+{
+id:2,
+name:"Rendang Ayam",
+category:"Tradisional",
+time:"1 jam 30 minit",
+difficulty:"Sederhana",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/RENDANG_AYAM.jpg",
+description:"Hidangan ayam yang dimasak bersama santan dan rempah sehingga pekat dan beraroma.",
+ingredients:["500g ayam","200ml santan","2 batang serai","4 sudu besar cili kisar","1 helai daun kunyit","3 sudu besar kerisik","Bawang merah dan bawang putih","Serbuk kunyit dan garam"],
+steps:["Bersihkan ayam dan toskan airnya.","Kisar bawang merah dan bawang putih.","Tumis bahan kisar bersama cili kisar dan serai sehingga naik bau.","Masukkan ayam dan gaul sehingga sebati.","Tuangkan santan dan masak dengan api sederhana.","Masukkan kerisik, daun kunyit dan garam.","Masak sehingga kuah menjadi pekat dan ayam empuk."],
+tip:"Kacau rendang sekali-sekala supaya santan tidak mudah pecah."
+},
+
+{
+id:3,
+name:"Mee Goreng Mamak",
+category:"Tradisional",
+time:"25 minit",
+difficulty:"Mudah",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Mee_Goreng_Mamak.jpg",
+description:"Mi goreng yang mempunyai rasa pedas, manis dan sedikit masam.",
+ingredients:["1 paket mi kuning","2 ulas bawang putih","2 sudu besar cili kisar","2 sudu besar kicap manis","1 sudu sos tomato","Taugeh","Kentang rebus","Telur","Sayur sawi"],
+steps:["Celur mi kuning dan toskan.","Tumis bawang putih dan cili kisar sehingga wangi.","Masukkan kicap dan sos tomato.","Masukkan kentang, sawi dan taugeh.","Masukkan mi kuning dan gaul rata.","Tambahkan telur dan kacau sehingga masak.","Hidangkan ketika masih panas."],
+tip:"Jangan masak taugeh terlalu lama supaya teksturnya kekal rangup."
+},
+
+{
+id:4,
+name:"Karipap Kentang",
+category:"Tradisional",
+time:"50 minit",
+difficulty:"Sederhana",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Karipap.jpg",
+description:"Kuih berinti kentang yang dibalut dengan kulit rangup dan digoreng keemasan.",
+ingredients:["2 cawan tepung gandum","3 sudu besar marjerin","Air secukupnya","2 biji kentang","1 biji bawang besar","Serbuk kari","Garam"],
+steps:["Potong kentang kepada kiub kecil.","Tumis bawang dan serbuk kari sehingga wangi.","Masukkan kentang dan sedikit air.","Masak sehingga kentang empuk dan perasakan.","Campurkan tepung dengan marjerin dan air untuk menghasilkan doh.","Canai doh dan masukkan inti kentang.","Lipat dan kelim bahagian tepi karipap.","Goreng sehingga berwarna keemasan."],
+tip:"Pastikan inti telah sejuk sebelum dimasukkan ke dalam kulit karipap."
+},
+
+/* PENCUCI MULUT */
+
+{
+id:5,
+name:"Puding Karamel",
+category:"Pencuci Mulut",
+time:"1 jam",
+difficulty:"Sederhana",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Puding_karamel_20230521_172740.jpg",
+description:"Puding lembut dengan lapisan karamel manis yang sesuai dijadikan pencuci mulut.",
+ingredients:["4 biji telur","500ml susu segar","5 sudu besar gula","1 sudu kecil esen vanila","5 sudu besar gula untuk karamel"],
+steps:["Panaskan gula di dalam kuali sehingga cair dan berwarna perang keemasan.","Tuangkan karamel ke dalam acuan.","Pukul telur bersama gula secara perlahan.","Masukkan susu dan esen vanila.","Tapis adunan supaya teksturnya lebih halus.","Tuangkan ke dalam acuan.","Kukus sehingga puding masak dan sejukkan sebelum dihidangkan."],
+tip:"Jangan pukul telur terlalu kuat kerana ini boleh menghasilkan banyak gelembung udara."
+},
+
+{
+id:6,
+name:"Kek Coklat Moist",
+category:"Pencuci Mulut",
+time:"1 jam",
+difficulty:"Sederhana",
+image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900",
+description:"Kek coklat yang lembut, lembap dan mempunyai rasa coklat yang kaya.",
+ingredients:["1 cawan tepung gandum","1 cawan gula","1/2 cawan serbuk koko","2 biji telur","1/2 cawan susu","1/2 cawan minyak masak","1 sudu kecil serbuk penaik"],
+steps:["Campurkan tepung gandum, serbuk koko dan serbuk penaik.","Masukkan gula dan gaul rata.","Tambahkan telur, susu dan minyak.","Kacau sehingga adunan sebati.","Tuangkan adunan ke dalam loyang yang telah disediakan.","Bakar pada suhu 170°C selama kira-kira 35 hingga 45 minit.","Biarkan kek sejuk sebelum dipotong."],
+tip:"Elakkan membuka pintu ketuhar terlalu awal supaya kek dapat naik dengan baik."
+},
+
+{
+id:7,
+name:"Pancake Gebu",
+category:"Pencuci Mulut",
+time:"20 minit",
+difficulty:"Mudah",
+image:"https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=900",
+description:"Pancake yang lembut dan gebu, sesuai untuk sarapan atau minum petang.",
+ingredients:["1 cawan tepung gandum","1 sudu besar gula","1 sudu kecil serbuk penaik","1 biji telur","3/4 cawan susu","2 sudu besar mentega cair"],
+steps:["Campurkan tepung, gula dan serbuk penaik.","Masukkan telur dan susu.","Tambahkan mentega cair dan kacau sehingga sebati.","Panaskan kuali dengan sedikit mentega.","Tuangkan sedikit adunan ke dalam kuali.","Masak sehingga gelembung muncul di permukaan.","Terbalikkan dan masak bahagian sebelah lagi."],
+tip:"Jangan terlalu lama mengacau adunan kerana pancake boleh menjadi kurang gebu."
+},
+
+{
+id:8,
+name:"Onde-onde",
+category:"Pencuci Mulut",
+time:"35 minit",
+difficulty:"Sederhana",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Onde-onde.jpg",
+description:"Kuih tradisional berwarna hijau dengan inti gula melaka dan salutan kelapa parut.",
+ingredients:["2 cawan tepung pulut","Air pandan secukupnya","Gula melaka yang dipotong kecil","Kelapa parut","Sedikit garam"],
+steps:["Campurkan tepung pulut dengan air pandan sedikit demi sedikit.","Uli sehingga menjadi doh yang lembut.","Ambil sedikit doh dan leperkan.","Masukkan gula melaka ke bahagian tengah.","Bulatkan doh sehingga inti tertutup sepenuhnya.","Rebus sehingga bebola timbul di permukaan air.","Angkat dan salutkan dengan kelapa parut."],
+tip:"Pastikan doh ditutup rapat supaya gula melaka tidak keluar semasa direbus."
+},
+
+/* MINUMAN */
+
+{
+id:9,
+name:"Teh Tarik",
+category:"Minuman",
+time:"10 minit",
+difficulty:"Mudah",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Teh_Tarik.jpg",
+description:"Minuman teh bersusu yang terkenal dengan buih lembut dan rasa manis.",
+ingredients:["2 uncang teh","1 cawan air panas","3 sudu besar susu pekat","2 sudu besar susu cair"],
+steps:["Rendam uncang teh di dalam air panas.","Biarkan sehingga warna teh menjadi pekat.","Masukkan susu pekat dan susu cair.","Kacau sehingga semua bahan sebati.","Tuangkan teh dari satu bekas ke bekas yang lain dengan berhati-hati.","Hidangkan ketika panas."],
+tip:"Proses menuang teh membantu menghasilkan buih yang menjadi ciri khas teh tarik."
+},
+
+{
+id:10,
+name:"Jus Mangga",
+category:"Minuman",
+time:"10 minit",
+difficulty:"Mudah",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Glass_of_Mango_Juice.jpg",
+description:"Minuman buah yang menyegarkan dengan rasa manis semula jadi daripada mangga.",
+ingredients:["2 biji mangga masak","1 cawan air sejuk","1 sudu besar gula (pilihan)","Ais secukupnya"],
+steps:["Basuh dan kupas mangga.","Potong isi mangga kepada bahagian kecil.","Masukkan mangga ke dalam pengisar.","Tambahkan air sejuk dan gula jika perlu.","Kisar sehingga halus.","Tuangkan ke dalam gelas dan tambahkan ais."],
+tip:"Gunakan mangga yang masak untuk mendapatkan rasa yang lebih manis."
+},
+
+{
+id:11,
+name:"Air Sirap Bandung",
+category:"Minuman",
+time:"5 minit",
+difficulty:"Mudah",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Bandung_Drinks.jpg",
+description:"Minuman susu berwarna merah jambu yang manis dan menyegarkan.",
+ingredients:["3 sudu besar sirap ros","1/2 cawan susu cair","1 cawan air sejuk","Ais secukupnya"],
+steps:["Masukkan sirap ros ke dalam gelas.","Tambahkan susu cair.","Tuangkan air sejuk.","Kacau sehingga warna menjadi merah jambu.","Tambahkan ais dan hidangkan."],
+tip:"Laraskan jumlah sirap mengikut tahap kemanisan yang disukai."
+},
+
+{
+id:13,
+name:"Air Jagung",
+category:"Minuman",
+time:"10 minit",
+difficulty:"Mudah",
+image:"https://munchmalaysia.com/wp-content/uploads/2024/03/Air-jagung.jpg",
+description:"Minuman jagung manis yang berkrim dan menyegarkan.",
+ingredients:["1 tin jagung krim","1 cawan susu cair","2 sudu besar susu pekat","Air sejuk","Ais secukupnya"],
+steps:["Masukkan jagung krim ke dalam jag.","Tambahkan susu cair dan susu pekat.","Masukkan air sejuk.","Kacau sehingga sebati.","Tambahkan ais dan hidangkan."],
+tip:"Laraskan susu pekat mengikut tahap kemanisan yang disukai."
+},
+
+/* RESIPI MUDAH */
+
+{
+id:12,
+name:"Sandwic Telur",
+category:"Resipi Mudah",
+time:"15 minit",
+difficulty:"Mudah",
+image:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=900",
+description:"Sandwic ringkas dengan inti telur berkrim yang sesuai untuk sarapan.",
+ingredients:["4 keping roti","2 biji telur","2 sudu besar mayonis","Sedikit lada sulah","Sedikit garam","Daun salad"],
+steps:["Rebus telur sehingga masak.","Sejukkan telur dan kupas kulitnya.","Lenyekkan telur di dalam mangkuk.","Masukkan mayonis, garam dan lada sulah.","Kacau sehingga inti sebati.","Letakkan salad dan inti telur di atas roti.","Tutup dengan sekeping roti lagi dan potong mengikut kesukaan."],
+tip:"Simpan inti telur di dalam peti sejuk jika tidak digunakan dengan segera."
+},
+
+{
+id:14,
+name:"Roti Telur",
+category:"Resipi Mudah",
+time:"10 minit",
+difficulty:"Mudah",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Traditional_roti_telur_(egg_flatbread).jpg",
+description:"Roti telur yang mudah disediakan untuk sarapan.",
+ingredients:["1 keping roti","1 biji telur","Sedikit garam","Sedikit lada sulah","Mentega"],
+steps:["Pukul telur bersama garam dan lada sulah.","Panaskan kuali dengan mentega.","Celupkan roti ke dalam telur.","Masak kedua-dua bahagian sehingga keemasan.","Hidangkan ketika panas."],
+tip:"Gunakan api sederhana supaya roti masak sekata."
+},
+
+{
+id:15,
+name:"Maggi Goreng",
+category:"Resipi Mudah",
+time:"15 minit",
+difficulty:"Mudah",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Maggi_Goreng.jpg",
+description:"Mi segera goreng yang popular dan mudah disediakan.",
+ingredients:["1 paket mi segera","1 biji telur","Sayur sawi","2 ulas bawang putih","Perencah mi","Sedikit minyak"],
+steps:["Rebus mi sehingga hampir lembut dan toskan.","Tumis bawang putih sehingga wangi.","Masukkan telur dan sayur.","Masukkan mi dan perencah.","Gaul sehingga sebati dan masak."],
+tip:"Jangan rebus mi terlalu lama supaya teksturnya tidak terlalu lembik."
+},
+
+{
+id:16,
+name:"Sosej Goreng",
+category:"Resipi Mudah",
+time:"10 minit",
+difficulty:"Mudah",
+image:"https://commons.wikimedia.org/wiki/Special:FilePath/Fried_Sausage_with_Cheese.jpg",
+description:"Hidangan ringkas menggunakan sosej yang digoreng bersama perasa.",
+ingredients:["4 batang sosej","1/2 biji bawang besar","1 sudu sos cili","1 sudu sos tomato","Sedikit minyak"],
+steps:["Potong sosej kepada bahagian kecil.","Hiris bawang besar.","Panaskan sedikit minyak.","Masukkan bawang dan sosej.","Tambahkan sos cili dan sos tomato.","Gaul sehingga masak."],
+tip:"Hidangkan bersama nasi atau roti."
+}
+
+];
+
+let currentCategory="Semua";
+
+let favourites=[];
+try {
+  favourites=JSON.parse(localStorage.getItem("resipiFavourites") || "[]");
+  if(!Array.isArray(favourites)) favourites=[];
+} catch(error) {
+  favourites=[];
+}
+
+function displayRecipes() {
+  const grid=document.getElementById("recipeGrid");
+  const search=document.getElementById("searchInput").value.toLowerCase();
+
+  const filtered=recipes.filter(recipe=>{
+    const matchesCategory=
+      currentCategory==="Semua" ||
+      recipe.category===currentCategory;
+
+    const matchesSearch=
+      recipe.name.toLowerCase().includes(search) ||
+      recipe.description.toLowerCase().includes(search);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  grid.innerHTML="";
+
+  if(filtered.length===0) {
+    grid.innerHTML='<div class="empty">😢 Tiada resipi dijumpai. Cuba carian lain!</div>';
+    return;
+  }
+
+  filtered.forEach(recipe=>{
+    grid.innerHTML+=createCard(recipe);
+  });
+}
+
+function createCard(recipe) {
+  const saved=favourites.includes(recipe.id);
+
+  const imageHTML=recipe.image
+    ? `<img src="${recipe.image}" alt="${recipe.name}" loading="lazy" onerror="this.style.display='none'">`
+    : `<div style="height:210px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:65px">🌽</div>`;
+
+  return `
+    <div class="recipe-card">
+      ${imageHTML}
+      <div class="recipe-info">
+        <span class="recipe-tag">${recipe.category}</span>
+        <h3>${recipe.name}</h3>
+        <p>${recipe.description}</p>
+
+        <div class="recipe-meta">
+          <span>⏱ ${recipe.time}</span>
+          <span>⭐ ${recipe.difficulty}</span>
+        </div>
+
+        <div class="card-actions">
+          <button class="view-btn" onclick="openRecipe(${recipe.id})">
+            Lihat Resipi →
+          </button>
+
+          <button class="fav-btn"
+          onclick="toggleFavourite(${recipe.id})"
+          title="Simpan kegemaran">
+            ${saved ? "❤️" : "🤍"}
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function filterRecipes(category,button) {
+  currentCategory=category;
+
+  document.querySelectorAll(".filter-buttons button")
+    .forEach(btn=>btn.classList.remove("active"));
+
+  if(button) {
+    button.classList.add("active");
+  } else {
+    document.querySelectorAll(".filter-buttons button")[0]
+      .classList.add("active");
+  }
+
+  document.getElementById("recipes").scrollIntoView({
+    behavior:"smooth"
+  });
+
+  displayRecipes();
+}
+
+function toggleFavourite(id) {
+  if(favourites.includes(id)) {
+    favourites=favourites.filter(item=>item!==id);
+  } else {
+    favourites.push(id);
+  }
+
+  localStorage.setItem("resipiFavourites",JSON.stringify(favourites));
+
+  displayRecipes();
+  displayFavourites();
+}
+
+function displayFavourites() {
+  const grid=document.getElementById("favouriteGrid");
+
+  const savedRecipes=recipes.filter(recipe=>
+    favourites.includes(recipe.id)
+  );
+
+  if(savedRecipes.length===0) {
+    grid.innerHTML='<div class="empty">Belum ada resipi kegemaran. Tekan 🤍 pada resipi untuk menyimpannya!</div>';
+    return;
+  }
+
+  grid.innerHTML=savedRecipes.map(createCard).join("");
+}
+
+function openRecipe(id) {
+  const recipe=recipes.find(item=>item.id===id);
+  if(!recipe) return;
+
+  const modal=document.getElementById("recipeModal");
+
+  const imageHTML=recipe.image
+    ? `<img src="${recipe.image}" alt="${recipe.name}" onerror="this.style.display='none'">`
+    : "";
+
+  document.getElementById("modalDetails").innerHTML=`
+    ${imageHTML}
+    <div class="modal-body">
+      <span class="recipe-tag">${recipe.category}</span>
+      <h2>${recipe.name}</h2>
+      <p>${recipe.description}</p>
+
+      <div class="recipe-meta">
+        <span>⏱ Masa: ${recipe.time}</span>
+        <span>⭐ Tahap: ${recipe.difficulty}</span>
+      </div>
+
+      <h3>🧺 Bahan-bahan</h3>
+      <ul>
+        ${recipe.ingredients.map(item=>`<li>${item}</li>`).join("")}
+      </ul>
+
+      <h3>👩‍🍳 Cara Penyediaan</h3>
+      <ol>
+        ${recipe.steps.map(item=>`<li>${item}</li>`).join("")}
+      </ol>
+
+      <div class="tip">
+        💡 <strong>Tips:</strong> ${recipe.tip}
+      </div>
+
+      <p style="margin-top:20px">
+        Selamat mencuba dan semoga berjaya!
+      </p>
+    </div>
+  `;
+
+  modal.style.display="block";
+  document.body.style.overflow="hidden";
+}
+
+function closeModal() {
+  document.getElementById("recipeModal").style.display="none";
+  document.body.style.overflow="auto";
+}
+
+document.getElementById("recipeModal").addEventListener("click",function(event){
+  if(event.target===this) {
+    closeModal();
+  }
+});
+
+function toggleDark() {
+  document.body.classList.toggle("dark");
+
+  const isDark=document.body.classList.contains("dark");
+
+  document.getElementById("themeBtn").textContent=
+    isDark?"☀️":"🌙";
+
+  localStorage.setItem("resipiDarkMode",isDark);
+}
+
+function randomRecipe() {
+  const recipe=recipes[Math.floor(Math.random()*recipes.length)];
+  openRecipe(recipe.id);
+}
+
+if(localStorage.getItem("resipiDarkMode")==="true") {
+  document.body.classList.add("dark");
+  document.getElementById("themeBtn").textContent="☀️";
+}
+
+displayRecipes();
+displayFavourites();
+
+</script>
+
+</body>
+  </html>
